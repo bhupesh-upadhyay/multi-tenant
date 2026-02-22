@@ -11,3 +11,7 @@ venv/
 
 #python
 __pycache__/
+.pyc
+
+#local database
+db.sqlite3

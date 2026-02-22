@@ -93,3 +93,20 @@ Handles:
     Custom permissions base classes
 VERY important for clean architecture.
 
+
+Organization creation API
+With:
+Serializer
+ViewSet
+Auto-create OWNER membership
+Transaction atomic safety
+
+Request → Authentication → Permission check →
+Serializer validation → Service layer →
+Atomic transaction →
+Create organization →
+Create owner membership →
+Commit →
+Serialize response →
+Return 201
+

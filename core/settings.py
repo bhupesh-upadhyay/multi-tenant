@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "rest_framework",
     "rest_framework_simplejwt",
+    "django_extensions",
+    "debug_toolbar",
     "apps.accounts",
     "apps.organizations",
     "apps.projects",
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -144,8 +147,13 @@ return {"detail":"Auth cred were not provided"}
 REST_FRAMEWORK = { # Drf check this conf
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication", #checks bearear token
+        'rest_framework.authentication.SessionAuthentication',
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated", # is user allowed to access this api
     ),
 }
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
