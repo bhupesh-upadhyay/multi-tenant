@@ -9,7 +9,6 @@ class Organization(SoftDeleteModel):
         ("PRO", "Pro"),
         ("ENTERPRISE", "Enterprise"),
     )
-
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     owner = models.ForeignKey(
@@ -35,7 +34,6 @@ class Membership(SoftDeleteModel):
         ("ADMIN", "Admin"),
         ("MEMBER", "Member"),
     )
-
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

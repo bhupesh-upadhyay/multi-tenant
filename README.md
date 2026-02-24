@@ -110,3 +110,27 @@ Commit →
 Serialize response →
 Return 201
 
+
+Projects app (nested under organization)
+Route will look like:
+/api/orgs/{org_id}/projects/
+
+<!-- This should not allow any member can create project in any orgination -->
+{
+  "name": "Secret Project",
+  "organization": 5
+}
+<!-- prevention -->
+1. organization must be read_only=True on MembershipSerializer
+2. overide get_queryset() return new queryset filter with org_id from url (not enough)
+    will not work for create because there is no existing object yet.
+1️⃣ Extract org_id from self.kwargs
+2️⃣ Fetch organization safely (using tenant-filtered queryset)
+3️⃣ Inject that organization into service layer
+4️⃣ Ignore anything sent in request body
+So project creation must look like:
+org = get_org_from_url()
+create_project(organization=org, ...)
+Never:
+organization = serializer.validated_data["organization"]
+Never trust client for tenant reference.

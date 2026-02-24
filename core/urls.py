@@ -23,7 +23,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 
 
 router = DefaultRouter()
-router.register(r'organisation', views.OrganizationViewSet, basename='organization') # TODO: why need basename
+router.register(r'org', views.OrganizationViewSet, basename='organization') # TODO: why need basename
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

@@ -1,15 +1,16 @@
 from django.db import transaction, IntegrityError
-from django.core.exceptions import ValidationError
+# from django.core.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, PermissionDenied
 from .models import Organization, Membership
 from django.utils.text import slugify
 
 def create_organization(owner, name, slug=None):
     # 1. Check plan limit
     if owner.owned_organizations.count() >= 3:
-        raise  ValidationError("Buy Plan to create More Organisations") # TODO: PermissionDenied
+        raise ValidationError({"detail": "Organization limit reached for your plan."}) # TODO: PermissionDenied
     if slug:
         if Organization.objects.filter(slug=slug).exists():
-            raise IntegrityError("slug already exist")
+            raise ValidationError({"slug": "Slug already exists."})
     else:
         # 2. Generate slug if needed
         base_slug = slugify(name.strip().lower())
