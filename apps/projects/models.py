@@ -36,3 +36,5 @@ class Project(SoftDeleteModel):
             models.Index(fields=["slug"]),
         ]   
         
+    def __str__(self):
+        return f"{self.organization.name} - {self.name}"
