@@ -15,7 +15,7 @@ class ProjectViewSet(TenantResolutionMixin, ModelViewSet):
     
     def get_queryset(self):
         org = self.get_organization()
-        return Project.objects.filter(organization=org)
+        return Project.objects.filter(organization=org).select_related("created_by") # To avoid N+1(duplicate) queries.
 
     def perform_create(self, serializer):
         org = self.get_organization()
@@ -23,7 +23,7 @@ class ProjectViewSet(TenantResolutionMixin, ModelViewSet):
             organization=org,
             created_by=self.request.user,
             name=serializer.validated_data["name"],
-            slug=serializer.validated_data.get("slug"),
+            slug=serializer.validated_data.get("slug", None),
             description=serializer.validated_data.get("description", "")
         )
         print(project)

@@ -134,3 +134,21 @@ create_project(organization=org, ...)
 Never:
 organization = serializer.validated_data["organization"]
 Never trust client for tenant reference.
+
+
+Feature	select_related()	prefetch_related()
+Query type	SQL JOIN	Separate queries
+DB hits	1	Usually 2
+Works for	FK, OneToOne	M2M, reverse FK
+Performance	Faster for single relation	Better for multiple related objects
+Combines data	In SQL	In Python
+
+✅ Use select_related() when:
+Each object has one related object
+Example: Book → Author
+You want 1 SQL query
+✅ Use prefetch_related() when:
+Relationship returns multiple objects
+Example: Store → books
+Reverse ForeignKey
+ManyToMany
