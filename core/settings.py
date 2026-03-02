@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.tasks",
     "apps.analytics",
     "apps.common",
+    "django_filters"
 ]
 
 MIDDLEWARE = [
